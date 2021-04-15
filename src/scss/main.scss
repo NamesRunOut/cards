@@ -1,0 +1,732 @@
+@import './variables';
+@import './resets';
+
+@mixin center() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin card() {
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+@mixin flexRow() {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+@mixin flexColumn() {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+@mixin columnGrid() {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+}
+
+@mixin columnGridSmall() {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+@mixin columnGridSmall2() {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+@mixin rowGrid() {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+@mixin infoSpacing() {
+  padding: $info_padding;
+  margin: $info_padding;
+  margin-bottom: 0;
+}
+
+@mixin buttonHover() {
+  transition-duration: 0.1s;
+  color: darken($navbutton_color, 30%);
+  background-color: lighten($navbutton_color, 10%);
+}
+
+@mixin navButtonHover() {
+  transition-duration: 0.1s;
+  background: linear-gradient(145deg, #383e44, #2f343a);
+  box-shadow: 1px 1px 2px #22262a,
+  -1px -1px 2px #464e56;
+}
+
+@mixin navButtonActive() {
+  background: linear-gradient(145deg, #2f343a, #383e44);
+  box-shadow: 1px 1px 2px #2d3238,
+  -1px -1px 2px #3b4248;
+}
+
+@mixin navButtonDisable() {
+  color: darken($secondary_color, 50%);
+  background: #343a40;
+  box-shadow: inset 1px 1px 2px #2d3238,
+  inset -1px -1px 2px #3b4248;
+}
+
+@mixin navButtonLooks() {
+  background-color: $navbar_color;
+  box-shadow: 1px 1px 2px #252a2e,
+  -1px -1px 2px #434a52;
+  color: $secondary_color;
+}
+
+@mixin cardHover() {
+  background-color: darken($card_white_bg, 10%);
+}
+
+.navbar {
+  @include flexRow;
+  align-items: center;
+  background-color: $navbar_color;
+  color: $secondary_color;
+  padding-left: $main_padding;
+  padding-right: $main_padding;
+  position: relative;
+
+  select {
+    border: none;
+    background-color: $navbar_color;
+    color: $secondary_color;
+  }
+
+  button {
+    @include navButtonLooks();
+    font-size: 1rem;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    &:hover {
+      @include navButtonHover;
+    }
+
+    &:disabled {
+      @include navButtonDisable();
+    }
+
+    &:active {
+      @include navButtonActive();
+    }
+  }
+
+  #startButton {
+    font-size: 1.2rem;
+    padding-left: $info_padding;
+    padding-right: $info_padding;
+    margin-right: $info_padding;
+  }
+
+  .userid {
+    position: absolute;
+    right: 2em;
+  }
+
+  #{&}_points {
+    @include flexRow;
+    align-items: center;
+  }
+
+  #{&}_decks {
+    @include flexRow;
+    position: relative;
+    display: inline-block;
+    align-items: center;
+    margin-left: 2em;
+    margin-right: 2em;
+
+    &_content {
+      display: none;
+      position: absolute;
+      z-index: 1;
+      padding: 0.5em;
+      min-width: 8rem;
+      background-color: $navbar_color;
+
+      a {
+        display: block;
+      }
+    }
+
+    &:hover .navbar_decks_content {
+      display: block;
+    }
+  }
+}
+
+
+.mainArea {
+  @include flexRow;
+  justify-content: flex-start;
+  padding: $main_padding;
+  background-color: $main-color;
+
+  #cards {
+    margin-left: $main_padding;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .box {
+    border-radius: 1rem;
+    margin-bottom: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: lighten($card_black_bg, 10%);
+    margin-right: $info_padding;
+  }
+}
+
+#yourCards {
+  @include flexRow;
+  position: relative;
+  padding: $main_padding;
+  background-color: $main-color;
+
+  h2 {
+    color: white;
+    z-index: 10001;
+  }
+
+  #blocker {
+    z-index: 10000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .loaderWrapper {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+  }
+
+  .wrapper {
+    display: flex;
+  }
+
+  .dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 0.5rem;
+    margin: 0.25rem;
+    animation-iteration-count: infinite;
+  }
+
+  .dot1 {
+    background-color: rgba(212, 20, 30, 1);
+    animation-name: dots3;
+    animation-duration: 2s;
+  }
+
+  .dot2 {
+    background-color: rgba(252, 126, 72, 1);
+    animation-delay: 0.1s;
+    animation-name: dots5;
+    animation-duration: 2.1s;
+  }
+
+  .dot3 {
+    background-color: rgba(237, 235, 41, 1);
+    animation-delay: 0.2s;
+    animation-name: dots;
+    animation-duration: 2.2s;
+  }
+
+  .dot4 {
+    background-color: rgba(172, 237, 41, 1);
+    animation-delay: 0.3s;
+    animation-name: dots1;
+    animation-duration: 2.3s;
+  }
+
+  .dot5 {
+    background-color: rgba(78, 240, 43, 1);
+    animation-delay: 0.4s;
+    animation-name: dots2;
+    animation-duration: 2.4s;
+  }
+
+  .dot6 {
+    background-color: rgba(52, 231, 144, 1);
+    animation-delay: 0.5s;
+    animation-name: dots4;
+    animation-duration: 2.5s;
+  }
+
+  .dot7 {
+    background-color: rgba(37, 234, 204, 1);
+    animation-delay: 0.6s;
+    animation-name: dots2;
+    animation-duration: 2.6s;
+  }
+
+  .dot8 {
+    background-color: rgba(48, 156, 223, 1);
+    animation-delay: 0.7s;
+    animation-name: dots1;
+    animation-duration: 2.7s;
+  }
+
+  .dot9 {
+    background-color: rgba(37, 68, 231, 1);
+    animation-delay: 0.8s;
+    animation-name: dots;
+    animation-duration: 2.8s;
+  }
+
+  .dot10 {
+    background-color: rgba(133, 45, 244, 1);
+    animation-delay: 0.9s;
+    animation-name: dots5;
+    animation-duration: 2.9s;
+  }
+
+  .dot11 {
+    background-color: rgba(244, 45, 241, 1);
+    animation-delay: 1s;
+    animation-name: dots3;
+    animation-duration: 2s;
+  }
+
+  @keyframes dots {
+    0% {
+      height: 1rem;
+      transition-duration: 0.3s;
+    }
+    50% {
+      height: 6rem;
+      transform: translate(0, -2rem);
+      transition-duration: 0.3s;
+    }
+    100% {
+      height: 1rem;
+      transition-duration: 0.3s;
+    }
+  }
+  @keyframes dots1 {
+    0% {
+      height: 1rem;
+      transition-duration: 0.3s;
+    }
+    50% {
+      height: 6rem;
+      transform: translate(0, -1.5rem);
+      transition-duration: 0.3s;
+    }
+    100% {
+      height: 1rem;
+      transition-duration: 0.3s;
+    }
+  }
+  @keyframes dots2 {
+    0% {
+      height: 1rem;
+      transition-duration: 0.3s;
+    }
+    50% {
+      height: 6rem;
+      transform: translate(0, -0.5rem);
+      transition-duration: 0.3s;
+    }
+    100% {
+      height: 1rem;
+      transition-duration: 0.3s;
+    }
+  }
+  @keyframes dots3 {
+    0% {
+      height: 1rem;
+      transition-duration: 0.3s;
+    }
+    50% {
+      height: 1.5rem;
+      --transform: translate(0, -0.75rem);
+      transition-duration: 0.3s;
+    }
+    100% {
+      height: 1rem;
+      transition-duration: 0.3s;
+    }
+  }
+  @keyframes dots4 {
+    0% {
+      height: 1rem;
+      transition-duration: 0.3s;
+    }
+    50% {
+      height: 6rem;
+      transform: translate(0, 0.25rem);
+      transition-duration: 0.3s;
+    }
+    100% {
+      height: 1rem;
+      transition-duration: 0.3s;
+    }
+  }
+  @keyframes dots5 {
+    0% {
+      height: 1rem;
+      transition-duration: 0.3s;
+    }
+    50% {
+      height: 4.5rem;
+      transform: translate(0, -1.5rem);
+      transition-duration: 0.3s;
+    }
+    100% {
+      height: 1rem;
+      transition-duration: 0.3s;
+    }
+  }
+}
+
+.info {
+  @include columnGrid;
+  background-color: $secondary_color;
+
+  .title {
+    font-size: 1.4rem;
+  }
+
+  #{&}_score {
+    @include infoSpacing;
+    @include rowGrid;
+    background-color: $info_color;
+
+    .playerScore {
+      @include flexRow;
+    }
+  }
+
+  #{&}_chat {
+    @include infoSpacing;
+    @include rowGrid;
+    background-color: $info_color;
+
+    button {
+      background-color: $navbar_color;
+      color: $secondary_color;
+      padding: 5px;
+      padding-left: $info_padding;
+      padding-right: $info_padding;
+
+      &:hover {
+        @include buttonHover;
+      }
+    }
+
+    #chatLog {
+      max-height: 28vh;
+      display: flex;
+      overflow: scroll;
+      flex-direction: column;
+      scroll-behavior: smooth;
+      align-items: flex-start;
+    }
+
+    #chatLog::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    #chatLog {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+
+    &_input {
+
+    }
+  }
+
+  #{&}_actions {
+    @include infoSpacing;
+    @include flexColumn;
+    max-width: 35vw;
+    background-color: $info_color;
+
+    &_action {
+      @include columnGridSmall;
+
+      div {
+        padding: 5px;
+        font-size: 0.9rem;
+      }
+
+      button {
+        background-color: $navbar_color;
+        color: $secondary_color;
+        padding: $info_padding;
+        min-width: 10rem;
+
+        &:hover {
+          @include buttonHover;
+        }
+      }
+    }
+
+    .contact {
+      margin: auto;
+    }
+
+    .contactImage {
+      margin: 5px;
+      padding: 5px;
+      max-width: $contact_size;
+      max-height: $contact_size;
+      border-radius: $contact-size;
+
+      &:hover {
+        background-color: $hover_color;
+        transition-duration: 0.2s;
+      }
+    }
+  }
+
+}
+
+.card {
+  border-radius: 0.5em;
+  min-height: $card_width*1.2;
+  width: $card-width;
+  padding: $card_margin*5;
+  margin: $card_margin;
+  background-color: $card_white_bg;
+  color: $card_white_text;
+  font-size: $card_font_size;
+  @include card;
+
+  &:hover {
+    @include cardHover();
+  }
+}
+
+.biggerCard {
+  border-radius: 1em;
+  height: $card_width_big*1.2;
+  width: $card_width_big;
+  padding: $card_margin_big*5;
+  margin: $card_margin_big;
+  background-color: $card_white_bg;
+  color: $card_white_text;
+  font-size: $card_font_size*1.25;
+  font-weight: 700;
+  @include card;
+
+  &:hover {
+    @include cardHover();
+  }
+}
+
+.blackCard {
+  background-color: $card_black_bg;
+  color: $card_black_text;
+  border-style: solid;
+  border-width: 2px;
+  border-color: $card_black_text;
+  line-height: 1.2;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI";
+
+  &:hover {
+    background-color: $card_black_bg;
+  }
+}
+
+.wrapper_form {
+  @include center;
+  flex-direction: column;
+}
+
+.form {
+  @include center;
+  flex-direction: column;
+  color: $main_color;
+  background-color: $secondary_color;
+
+  border: 1px solid $main_color;
+
+  padding: 2em;
+
+  h1 {
+    color: $main_color;
+    margin-bottom: 0.5em;
+  }
+}
+
+.form_input {
+  width: 20em;
+  margin: 0.5em;
+  font-size: 1.5rem;
+}
+
+.form_input--textarea {
+  width: 20em;
+  margin: 0.5em;
+  padding: 0.5em;
+  font-size: 1.5rem;
+}
+
+.form_submit {
+  width: 20em;
+  font-size: 1.5rem;
+  background: transparent;
+  border: 1px solid $main_color;
+  padding: 0.5em;
+  color: $main_color;
+
+  &:hover {
+    background-color: $navbar_color;
+    color: $main_color;
+  }
+}
+
+.form_back {
+  font-size: 1.1rem;
+  margin: 2em;
+  background: transparent;
+  border: none;
+  color: $main_color;
+
+  &:hover {
+    color: $navbar_color;
+  }
+}
+
+.form_error {
+  color: red;
+  margin-bottom: 0.5em;
+}
+
+
+select, input {
+  padding: 5px;
+}
+
+.event {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 99999;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    color: white;
+    z-index: 100000;
+  }
+}
+
+@media(max-width: 1200px) {
+  /*    .navbar{
+          justify-content: center;
+          .userid{
+              display: none;
+          }
+          #startButton{
+              width: 100%;
+              margin: 5px;
+          }
+      }*/
+  .info {
+    @include flexRow;
+
+    #{&}_actions {
+      max-width: 100%;
+    }
+  }
+  .mainArea {
+    justify-content: center;
+    align-items: center;
+
+    #cards {
+      margin-left: 0;
+      margin-right: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  #yourCards {
+    justify-content: center;
+  }
+  /*.card{
+      width: $card_width_smol;
+      min-height: $card_width_smol*1.2;
+  }*/
+}
+
+@media(max-width: 768px) {
+  .navbar {
+    justify-content: center;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+
+    .userid {
+      display: none;
+    }
+
+    #startButton {
+      width: 100%;
+      margin: 5px;
+    }
+  }
+  .mainArea {
+    padding-bottom: 0.5em;
+  }
+  #yourCards {
+    padding: 0.5em;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .info {
+    @include flexRow;
+
+    #{&}_actions {
+      width: 100%;
+    }
+
+    #{&}_chat {
+      width: 100%;
+    }
+
+    #{&}_score {
+      width: 100%;
+    }
+  }
+  .card {
+    width: $card_width_mini;
+    min-height: $card_width_mini*1.2;
+    padding: 0.5em;
+  }
+  .hidden {
+    display: none;
+  }
+}
