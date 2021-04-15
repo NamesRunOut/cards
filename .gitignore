@@ -22,4 +22,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# censor
 /src/functions/cards-off.js
+/public/static/images
