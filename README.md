@@ -6,7 +6,7 @@ This React app intends to mimic the functionality of a card game known as "Cards
 
 Demo -  https://immense-cliffs-cards.herokuapp.com/
 
-Invite your friends to play or open another tab(s) in your browser to see how it works
+Invite your friends to play or open another tab(s) in your browser to see how it works.
 
 ## Tech used
 Backend:
@@ -28,6 +28,10 @@ Frontend:
 
 ## Screenshots
 
+![Game screen](public/static/screenshots/1.png?raw=true "Game screen")
+![Tzar is picking a card](public/static/screenshots/3.png?raw=true "Tzar is picking a card")
+![Tzar has chosen](public/static/screenshots/4.png?raw=true "Tzar has chosen")
+![Mobile view](public/static/screenshots/2.png?raw=true "Mobile view")
 
 
 
