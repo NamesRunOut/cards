@@ -8,7 +8,7 @@ let blacki = 0;
 function getCat() {
     console.log("Fetching available decks...")
     let cat = []
-    fetch('https://mysterious-caverns-api.herokuapp.com/categories')
+    fetch('https://mysterious-caverns-api.herokuapp.com/cards-cats')
         .then(res => res.json())
         .then(json => {
             for (let i = 0; i < json.length; i++) {
@@ -37,7 +37,7 @@ const cdecks = async (decks) => {
     }
     //console.log(vars);
 
-    let res = await fetch('https://mysterious-caverns-api.herokuapp.com/categories?_limit=1000' + vars)
+    let res = await fetch('https://mysterious-caverns-api.herokuapp.com/cards-as?_limit=1000' + vars)
     let json = await res.json();
     for (let i = 0; i < json.length; i++) {
         if (json[i].whites == undefined) continue;
@@ -63,7 +63,7 @@ const cdecks = async (decks) => {
 const generateWhite = async () => {
     console.log("Fetching white cards...");
     white.splice(0, white.length);
-    let res = await fetch('https://mysterious-caverns-api.herokuapp.com/whites?_limit=1000')
+    let res = await fetch('https://mysterious-caverns-api.herokuapp.com/cards-as?_limit=1000')
     let json = await res.json();
     for (let i = 0; i < json.length; i++) {
         //let cm = white;
@@ -81,7 +81,7 @@ const generateWhite = async () => {
 const generateBlack = async () => {
     console.log("Fetching black cards...");
     black.splice(0, black.length);
-    let res = await fetch('https://mysterious-caverns-api.herokuapp.com/blacks?_limit=1000')
+    let res = await fetch('https://mysterious-caverns-api.herokuapp.com/cards-qs?_limit=1000')
     let json = await res.json();
     for (let i = 0; i < json.length; i++) {
         black[i] = {

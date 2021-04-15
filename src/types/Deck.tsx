@@ -2,7 +2,7 @@ export type Deck = {
     deck: {
         id: number
         name: string
-        color: string
+        color: string | undefined
     },
     checked: boolean
 }
