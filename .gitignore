@@ -24,4 +24,24 @@ yarn-error.log*
 
 # censor
 /src/functions/cards-off.js
-/public/static/images
+/public/static/images/1.png
+/public/static/images/2.png
+/public/static/images/3.png
+/public/static/images/4.png
+/public/static/images/5.png
+/public/static/images/6.png
+/public/static/images/7.png
+/public/static/images/8.png
+/public/static/images/9.png
+/public/static/images/10.png
+/public/static/images/11.png
+/public/static/images/12.png
+/public/static/images/13.png
+/public/static/images/14.png
+/public/static/images/15.png
+/public/static/images/16.png
+/public/static/images/17.png
+/public/static/images/18.png
+/public/static/images/19.png
+/public/static/images/20.png
+/public/static/images/21.png
