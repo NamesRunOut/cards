@@ -24,7 +24,7 @@ const CardsPlayed = () => {
                             case 0:
                                 if (!Array.isArray(element))
                                     return <CommitedCard key={element.matchid} card={element} chosen={!element.chosen}
-                                                         revealed={element.revealed || false} playerName={'jhg'}
+                                                         revealed={element.revealed || false} playerName={element.playerName || ''}
                                                          player={element.player || 'unknown'}/>
                                 break;
                             case 2:
@@ -35,7 +35,7 @@ const CardsPlayed = () => {
                                         {element.map((box: CardPlayed) => {
                                             return <CommitedCard key={`${box.matchid}${i++}`} card={box}
                                                                  chosen={!box.chosen} revealed={box.revealed || false}
-                                                                 playerName={'jhg'} player={box.player || 'unknown'}/>
+                                                                 playerName={box.playerName || ''} player={box.player || 'unknown'}/>
                                         })}
                                     </div>
                                 break;

@@ -355,7 +355,7 @@ io.on('connection', (client) => {
                   if (playerList[tzarTag]!=playerList[i]) io.to(playerList[i]).emit('playerWait');
                 }
                 io.to(playerList[tzarTag]).emit('tzarTurn');
-                
+
               }
       }
       else if (prevBlack.type==2 || prevBlack.type==3){
